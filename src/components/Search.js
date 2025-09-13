@@ -21,7 +21,7 @@ class Search extends React.Component
     {
         this.setState
         (
-            () => ({page:this.state.page}),
+            () => ({page:this.state.page+1}),
             () => {this.props.searchMovie(this.state.search, this.state.type, this.state.page)}
         )
     }
@@ -43,10 +43,13 @@ class Search extends React.Component
         (
              ()=>({page:num}),
             () => {this.props.searchMovie(this.state.search, this.state.type, this.state.page);}
-        )
+        );
+        console.log(`setPage num:${num}`);
+        console.log(`setPage page:${this.state.page}`);
     }
     render()
     {
+        console.log("\n======================= Search render ==========================\n")
         let limit = 10;
         let totalPages = Math.ceil(this.props.totalCount / limit);
         const lastIndex = totalPages <=10 ? totalPages + 1 : this.state.page + limit;
@@ -67,7 +70,7 @@ class Search extends React.Component
                 onChange={(e) => this.setState({search: e.target.value})}
                 onKeyDown={this.handleKey}
                 />
-                <button className='btn' onClick={() => this.props.searchMovie(this.state.search)}>
+                <button className='btn' onClick={() => this.props.searchMovie(this.state.search, this.state.type)}>
                     Поиск
                 </button>
              </div>
